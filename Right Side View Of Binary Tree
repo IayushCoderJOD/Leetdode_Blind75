@@ -1,0 +1,23 @@
+#Here's the code.
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        
+        List<Integer> answer=new ArrayList<>();
+        helper(root,answer,0);  
+
+        return answer;      
+    }
+
+    public void helper(TreeNode root,List<Integer> answer,int level){
+
+        if(root==null)return ;
+        if(level==answer.size()){
+            answer.add(root.val);
+        }
+
+        helper( root.right,answer, level+1);
+        helper( root.left,answer, level+1);
+
+    }
+}
