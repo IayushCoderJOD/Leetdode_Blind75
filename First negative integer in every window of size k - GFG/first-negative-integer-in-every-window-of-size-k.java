@@ -42,6 +42,95 @@ class GFG {
 
 //User function Template for Java
 
+
+// class Compute {
+    
+//     public long[] printFirstNegativeInteger(long A[], int N, int K)
+//     {
+//         long [] window=new long[N-K+1];
+//         Queue<Long> q=new LinkedList<>();
+        
+//         int i=0;
+//         int j=0;
+//         while(j<N){
+//             if(A[j]<0)q.add(A[j]); 
+//             if(j-i+1 <K){
+//                 j++;
+//             }
+//             if(j-i+1==K){
+//                 // if(q.size()==0){
+//                 //     window[i]=0;
+//                 //     break;
+//                 // }
+//                 window[i]=q.peek();
+//                 if(A[i]==q.peek())q.remove();
+//                 i++;j++;
+//             }
+//         }
+//         return window;
+//     }
+// }
+
+// class Compute {
+    
+//     public long[] printFirstNegativeInteger(long A[], int N, int K)
+//     {
+//         long[] ans = new long[N-K+1]; // to store the answer for each window
+//         Queue<Long> queue = new LinkedList<>(); // to maintain negative elements in current window
+        
+//         int i = 0;
+//         int j = 0;
+//         while (j < N) {
+//             // add the current element to queue if it is negative
+//             if (A[j] < 0) {
+//                 queue.add(A[j]);
+//             }
+//             // if the window is not complete, move the right pointer forward
+//             if (j-i+1 < K) {
+//                 j++;
+//             } else if(j-i+1==K) {
+//                 // if the window is complete, get the answer and move the left pointer forward
+//                 ans[i] = queue.isEmpty() ? 0 : queue.peek();
+//                 if (A[i] == queue.peek()) {
+//                     queue.remove();
+//                 }
+//                 i++;
+//                 j++;
+//             }
+//         }
+        
+//         return ans;
+//     }
+// }
+// class Compute {
+    
+//     public long[] printFirstNegativeInteger(long A[], int N, int K)
+//     {
+//         long [] window = new long[N-K+1];
+//         Queue<Long> q = new LinkedList<>();
+        
+//         int i = 0;
+//         int j = 0;
+//         while (j < N) {
+//             if (A[j] < 0) {
+//                 q.add(A[j]); 
+//             }
+//             if (j-i+1 < K) {
+//                 j++;
+//             }
+//             if (j-i+1 == K) {
+//                 window[i] = q.isEmpty() ? 0 : q.peek();
+//                 if (A[i] == q.peek()) {
+//                     q.remove();
+//                 }
+//                 i++;
+//                 j++;
+//             }
+//         }
+//         return window;
+//     }
+// }
+
 class Compute {
     
     public long[] printFirstNegativeInteger(long A[], int N, int K)
@@ -58,17 +147,17 @@ class Compute {
         ans[0] = queue.isEmpty() ? 0 : A[queue.peek()];
         
         // process remaining windows
-        for (int i = K; i < N; i++) {
+        for (int i = 1; i <= N-K; i++) {
             // remove the leftmost element from the window and corresponding index from the queue
-            if (!queue.isEmpty() && queue.peek() <= i-K) {
+            if (!queue.isEmpty() && queue.peek() < i) {
                 queue.remove();
             }
             // add the index of new rightmost element to queue if it is negative
-            if (A[i] < 0) {
-                queue.add(i);
+            if (A[i+K-1] < 0) {
+                queue.add(i+K-1);
             }
             // get the answer for current window
-            ans[i-K+1] = queue.isEmpty() ? 0 : A[queue.peek()];
+            ans[i] = queue.isEmpty() ? 0 : A[queue.peek()];
         }
         
         return ans;
