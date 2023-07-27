@@ -43,30 +43,34 @@ class GFG
 
 class Solution
 {
-    //Function to find the minimum number of platforms required at the
-    //railway station such that no train waits.
+
     static int findPlatform(int arr[], int dep[], int n)
     {
         // add your code here
         Arrays.sort(arr);
         Arrays.sort(dep);
+        int platF=1;
+        int maxP=1;
         
-        int plat_needed=1;
-        int max=1;
         int i=1;
         int j=0;
         
         while(i<n && j<n){
             if(arr[i]<=dep[j]){
-                plat_needed++;
+                platF++;
                 i++;
-            }else{
-                plat_needed--;
+            }else if(arr[i]>dep[j]){
+                platF--;
                 j++;
+            }
+            if(platF>maxP){
+                maxP=platF;
+            }
         }
-        if(plat_needed>max)max=plat_needed;
+        
+        return maxP;
+        
     }
-    return max;
-    }
+    
 }
 
