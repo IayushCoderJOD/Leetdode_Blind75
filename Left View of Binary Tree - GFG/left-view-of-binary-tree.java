@@ -105,42 +105,40 @@ class GfG {
 
 // } Driver Code Ends
 
-
-//User function Template for Java
-
-/* A Binary Tree node
-class Node
-{
-    int data;
-    Node left, right;
-
-    Node(int item)
-    {
-        data = item;
-        left = right = null;
-    }
-}*/
 class Tree
 {
     //Function to return list containing elements of left view of binary tree.
     ArrayList<Integer> leftView(Node root)
     {
-      ArrayList<Integer> ans=new ArrayList<>();
-      int level=0;
-      if(root==null)return ans;
-      return helper(ans,root,level);
+    
+       Queue<Node> QueueDs=new LinkedList<>();
+       
+        List<List<Integer>> answerFinal=new ArrayList<>();
+        ArrayList<Integer> thisAnswer=new ArrayList<>();
+        
+        if(root==null)return thisAnswer;
+
+        QueueDs.offer(root);
+
+        while(!QueueDs.isEmpty()){
+            int size=QueueDs.size();
+            List<Integer> insideList=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                if(QueueDs.peek().left!=null)QueueDs.offer(
+                    QueueDs.peek().left
+                );
+                if(QueueDs.peek().right!=null)QueueDs.offer(
+                    QueueDs.peek().right
+                );
+
+                insideList.add(QueueDs.poll().data);
+                
+            }
+            thisAnswer.add(insideList.get(0));
+            answerFinal.add(insideList);
+        }
+        return thisAnswer;
+      
     }
-    ArrayList<Integer> helper(ArrayList<Integer> ans,Node root,int level){
-        if(root==null)return ans;
-        if(level==ans.size())ans.add(root.data);
-            helper(ans,root.left,level+1);
-            helper(ans,root.right,level+1);
-        return ans;
-    }
+
 }
-
-
-
-
-
-
