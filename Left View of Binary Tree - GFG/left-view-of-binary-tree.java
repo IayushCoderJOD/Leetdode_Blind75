@@ -105,40 +105,51 @@ class GfG {
 
 // } Driver Code Ends
 
+
+//User function Template for Java
+
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}*/
 class Tree
 {
     //Function to return list containing elements of left view of binary tree.
     ArrayList<Integer> leftView(Node root)
     {
-    
-       Queue<Node> QueueDs=new LinkedList<>();
-       
-        List<List<Integer>> answerFinal=new ArrayList<>();
-        ArrayList<Integer> thisAnswer=new ArrayList<>();
-        
-        if(root==null)return thisAnswer;
+      // Your code here
+          ArrayList<Integer> answer=new ArrayList<>();
+        Queue<Node> q=new LinkedList<>();
 
-        QueueDs.offer(root);
+        if(root==null)return answer;
 
-        while(!QueueDs.isEmpty()){
-            int size=QueueDs.size();
-            List<Integer> insideList=new ArrayList<>();
-            for(int i=0;i<size;i++){
-                if(QueueDs.peek().left!=null)QueueDs.offer(
-                    QueueDs.peek().left
-                );
-                if(QueueDs.peek().right!=null)QueueDs.offer(
-                    QueueDs.peek().right
-                );
+        q.offer(root);
+        int n=0;
 
-                insideList.add(QueueDs.poll().data);
-                
+        while(!q.isEmpty()){
+            List<Integer> inter=new ArrayList<>();
+            int size=q.size();
+
+            for(int i =0;i<size;i++){
+                if(q.peek().left!=null){
+                    q.offer(q.peek().left);
+                }
+                if(q.peek().right!=null){
+                    q.offer(q.peek().right);
+                }
+            inter.add(q.poll().data);
+
             }
-            thisAnswer.add(insideList.get(0));
-            answerFinal.add(insideList);
-        }
-        return thisAnswer;
-      
+            answer.add(inter.get(0));
+        } 
+        return answer;
     }
-
 }
