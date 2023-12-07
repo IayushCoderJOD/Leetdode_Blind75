@@ -35,19 +35,19 @@ class GFG
 class Solution{
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
         // code here
-        ArrayList<Integer> ans=new ArrayList<>();
-        func(0,0,ans,arr,N);
-        Collections.sort(ans);
-        return ans;
+        ArrayList<Integer> subsets=new ArrayList<>();
+        helper(subsets,arr,N, 0,0);
+        Collections.sort(subsets);
+        return subsets;
     }
     
-    void func(int ind,int sum,ArrayList<Integer> ans,ArrayList<Integer> arr,int N ){
-        if(ind==N){
-            ans.add(sum);
+    void helper(ArrayList<Integer> subsets,ArrayList<Integer> arr,int n,int sum, int i){
+        if(i==n){
+            subsets.add(sum);
             return ;
         }
         
-        func(ind+1,sum+arr.get(ind),ans,arr,N);
-        func(ind+1, sum, ans,arr,N);
+        helper(subsets,arr,n,sum+arr.get(i),i+1);
+        helper(subsets,arr,n,sum,i+1);
     }
 }
